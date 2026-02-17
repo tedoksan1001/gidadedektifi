@@ -28,11 +28,23 @@ jobs:
         with:
           channel: stable
 
+      - name: Flutter doctor
+        run: flutter doctor -v
+
       - name: Install dependencies
         run: flutter pub get
 
-      - name: Build release APK
-        run: flutter build apk --release
+      - name: Build release APK (verbose)
+        run: |
+          set -o pipefail
+          flutter build apk --release -v 2>&1 | tee build.log
+
+      - name: Upload build log on failure
+        if: failure()
+        uses: actions/upload-artifact@v4
+        with:
+          name: build-log
+          path: build.log
 
       - name: Copy APK to releases folder
         run: |

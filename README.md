@@ -72,6 +72,7 @@ Depoda `Build Android APK` workflow'u vardır.
 - `main` dalına her push'ta ve manuel tetiklemede çalışır.
 - `flutter build apk --release` ile APK üretir.
 - Çıktıyı `releases/app-release.apk` olarak repoya commit eder.
+- Hata olursa `build-log` artifact'i üzerinden ayrıntılı derleme logunu indirebilirsiniz.
 
 
 ## APK Oluşturma (Adım Adım)
