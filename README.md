@@ -1,16 +1,51 @@
-# gida_dedektifi
+# Gıda Dedektifi (Flutter Mobil Prototip)
 
-A new Flutter project.
+Gıda Dedektifi, gıda israfını azaltmayı hedefleyen Android odaklı bir mobil uygulama prototipidir.
 
-## Getting Started
+## Ana Özellikler
 
-This project is a starting point for a Flutter application.
+- **Barkod Okuyucu + SKT Takibi**
+  - Ürün barkodu okutulur.
+  - Ürün adı ve son kullanma tarihi kaydedilir.
+  - Son kullanma tarihine **2 gün kala** yerel bildirim planlanır.
+- **Artan Yemek Tarifi Önerisi**
+  - Evdeki malzemeler girilir.
+  - Uygun tarifler eşleşme puanına göre listelenir.
+  - Ortak malzemeler için hızlı ekleme çipleri vardır.
+- **eTwinning Katkısı**
+  - Ülkeler geleneksel “artan yemek değerlendirme” tariflerini ekleyebilir.
+  - Geleneksel tarifler ayrı akışta listelenir.
 
-A few resources to get you started if this is your first Flutter project:
+## Çevrimdışı Çalışma Desteği
 
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
+Uygulama Firebase'e bağlanamadığında da demo/prototip olarak çalışmaya devam eder:
 
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+- Yerel örnek tarifler otomatik yüklenir.
+- Tarif arama ve listeleme yerel verilerle sürer.
+- Ürün/tarif ekleme işlemleri kullanıcı akışını kesmeden devam eder.
+
+## Kurulum
+
+```bash
+flutter pub get
+flutter run
+```
+
+## Android APK Alma
+
+```bash
+flutter build apk --release
+```
+
+APK dosyası varsayılan olarak:
+
+```text
+build/app/outputs/flutter-apk/app-release.apk
+```
+
+## Releases Klasörü
+
+`releases/` klasörü depo içinde ayrılmıştır.
+
+- Bu ortamda `flutter` CLI kurulu olmadığı için APK otomatik üretilemedi.
+- Flutter kurulu bir makinede yukarıdaki komut ile üretip `releases/app-release.apk` olarak ekleyebilirsiniz.
