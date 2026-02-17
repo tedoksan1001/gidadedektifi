@@ -15,8 +15,23 @@ class _RecipeFinderScreenState extends State<RecipeFinderScreen> {
   final TextEditingController _ingredientController = TextEditingController();
 
   final List<String> _commonIngredients = [
-    'Ekmek', 'Süt', 'Yumurta', 'Domates', 'Peynir', 'Patates', 'Pirinç', 'Makarna', 'Yoğurt', 'Tavuk'
+    'Ekmek',
+    'Süt',
+    'Yumurta',
+    'Domates',
+    'Peynir',
+    'Patates',
+    'Pirinç',
+    'Makarna',
+    'Yoğurt',
+    'Tavuk',
   ];
+
+  @override
+  void dispose() {
+    _ingredientController.dispose();
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -85,6 +100,28 @@ class _RecipeFinderScreenState extends State<RecipeFinderScreen> {
                     )).toList(),
                   ),
                 ],
+                const SizedBox(height: 16),
+                const Text(
+                  'Hızlı Ekle',
+                  style: TextStyle(
+                    color: Colors.white,
+                    fontWeight: FontWeight.w600,
+                  ),
+                ),
+                const SizedBox(height: 8),
+                Wrap(
+                  spacing: 8,
+                  runSpacing: 8,
+                  children: _commonIngredients
+                      .map(
+                        (ingredient) => ActionChip(
+                          label: Text(ingredient),
+                          onPressed: () => _addQuickIngredient(ingredient),
+                          avatar: const Icon(Icons.add, size: 16),
+                        ),
+                      )
+                      .toList(),
+                ),
               ],
             ),
           ),
@@ -178,12 +215,27 @@ class _RecipeFinderScreenState extends State<RecipeFinderScreen> {
   }
 
   void _addIngredient() {
-    if (_ingredientController.text.isNotEmpty) {
-      setState(() {
-        _selectedIngredients.add(_ingredientController.text.trim());
-        _ingredientController.clear();
-      });
+    final ingredient = _ingredientController.text.trim();
+    if (ingredient.isEmpty) return;
+
+    final alreadyAdded = _selectedIngredients
+        .map((item) => item.toLowerCase())
+        .contains(ingredient.toLowerCase());
+
+    if (alreadyAdded) {
+      _ingredientController.clear();
+      return;
     }
+
+    setState(() {
+      _selectedIngredients.add(ingredient);
+      _ingredientController.clear();
+    });
+  }
+
+  void _addQuickIngredient(String ingredient) {
+    _ingredientController.text = ingredient;
+    _addIngredient();
   }
 
   void _showRecipeDetails(Recipe recipe) {
