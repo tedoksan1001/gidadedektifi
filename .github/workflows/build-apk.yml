@@ -5,7 +5,6 @@ on:
   push:
     branches:
       - main
-      - master
 
 permissions:
   contents: write
@@ -17,8 +16,6 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v4
-        with:
-          fetch-depth: 0
 
       - name: Set up Java
         uses: actions/setup-java@v4
@@ -30,25 +27,12 @@ jobs:
         uses: subosito/flutter-action@v2
         with:
           channel: stable
-          cache: true
-
-      - name: Flutter doctor
-        run: flutter doctor -v
 
       - name: Install dependencies
         run: flutter pub get
 
-      - name: Build release APK (verbose)
-        run: |
-          set -o pipefail
-          flutter build apk --release -v 2>&1 | tee build.log
-
-      - name: Upload build log on failure
-        if: failure()
-        uses: actions/upload-artifact@v4
-        with:
-          name: build-log
-          path: build.log
+      - name: Build release APK
+        run: flutter build apk --release
 
       - name: Copy APK to releases folder
         run: |

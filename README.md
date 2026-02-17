@@ -69,10 +69,9 @@ firebase deploy --only firestore:rules
 
 Depoda `Build Android APK` workflow'u vardır.
 
-- `main` ve `master` dallarına her push'ta ve manuel tetiklemede çalışır.
+- `main` dalına her push'ta ve manuel tetiklemede çalışır.
 - `flutter build apk --release` ile APK üretir.
 - Çıktıyı `releases/app-release.apk` olarak repoya commit eder.
-- Hata olursa `build-log` artifact'i üzerinden ayrıntılı derleme logunu indirebilirsiniz.
 
 
 ## APK Oluşturma (Adım Adım)
@@ -99,13 +98,3 @@ Bu adım sonrası APK yolu:
 ```text
 releases/app-release.apk
 ```
-
-
-## Android Build Notu
-
-Bu projede Firebase başlatma `lib/firebase_options.dart` ile kod üzerinden yapıldığı için Android tarafında `google-services.json` zorunlu değildir. Bu nedenle Gradle'da `com.google.gms.google-services` eklentisi kullanılmamaktadır.
-
-
-## Android Build Stabilite Notu
-
-GitHub Actions üzerinde `Gradle task assembleRelease failed` hatasının sık görülen sebeplerinden biri bellek tüketimidir. Bu nedenle `android/gradle.properties` içinde Gradle JVM ayarı CI için daha güvenli değerlere (`-Xmx4G`, `MaxMetaspaceSize=1G`) çekilmiştir.
